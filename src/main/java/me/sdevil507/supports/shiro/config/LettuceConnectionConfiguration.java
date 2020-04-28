@@ -19,14 +19,18 @@ package me.sdevil507.supports.shiro.config;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.resource.ClientResources;
 import io.lettuce.core.resource.DefaultClientResources;
-import me.sdevil507.supports.shiro.properties.ShiroRedisProperties;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.LettuceClientConfigurationBuilderCustomizer;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Pool;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration.LettuceClientConfigurationBuilder;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
@@ -43,11 +47,11 @@ import java.net.UnknownHostException;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(RedisClient.class)
-class ShiroLettuceConnectionConfiguration extends ShiroRedisConnectionConfiguration {
+class LettuceConnectionConfiguration extends RedisConnectionConfiguration {
 
-    ShiroLettuceConnectionConfiguration(ShiroRedisProperties properties,
-                                        ObjectProvider<ShiroRedisSentinelConfiguration> sentinelConfigurationProvider,
-                                        ObjectProvider<ShiroRedisClusterConfiguration> clusterConfigurationProvider) {
+    LettuceConnectionConfiguration(RedisProperties properties,
+                                   ObjectProvider<RedisSentinelConfiguration> sentinelConfigurationProvider,
+                                   ObjectProvider<RedisClusterConfiguration> clusterConfigurationProvider) {
         super(properties, sentinelConfigurationProvider, clusterConfigurationProvider);
     }
 
@@ -58,21 +62,22 @@ class ShiroLettuceConnectionConfiguration extends ShiroRedisConnectionConfigurat
     }
 
     /**
-     * 获取LettuceConnectionFactory
+     * 获取默认的LettuceConnectionFactory
      * <p>
      * 注意此处设置@Bean的名称,用于在项目中根据名称指定
      * 示例:
      * -@Autowired
-     * -@Qualifier("shiroLettuceConnectionFactory")
+     * -@Qualifier("defaultLettuceConnectionFactory")
      * 或
-     * -@Resource(name="shiroLettuceConnectionFactory")
+     * -@Resource(name="defaultLettuceConnectionFactory")
      *
      * @param builderCustomizers builderCustomizers
      * @param clientResources    clientResources
      * @return 获取LettuceConnectionFactory
      * @throws UnknownHostException UnknownHostException
      */
-    @Bean(name = "shiroLettuceConnectionFactory")
+    @Bean(name = "defaultLettuceConnectionFactory")
+    @Primary
     LettuceConnectionFactory redisConnectionFactory(
             ObjectProvider<LettuceClientConfigurationBuilderCustomizer> builderCustomizers,
             ClientResources clientResources) throws UnknownHostException {
@@ -93,7 +98,7 @@ class ShiroLettuceConnectionConfiguration extends ShiroRedisConnectionConfigurat
 
     private LettuceClientConfiguration getLettuceClientConfiguration(
             ObjectProvider<LettuceClientConfigurationBuilderCustomizer> builderCustomizers,
-            ClientResources clientResources, ShiroRedisProperties.Pool pool) {
+            ClientResources clientResources, Pool pool) {
         LettuceClientConfigurationBuilder builder = createBuilder(pool);
         applyProperties(builder);
         if (StringUtils.hasText(getProperties().getUrl())) {
@@ -104,7 +109,7 @@ class ShiroLettuceConnectionConfiguration extends ShiroRedisConnectionConfigurat
         return builder.build();
     }
 
-    private LettuceClientConfigurationBuilder createBuilder(ShiroRedisProperties.Pool pool) {
+    private LettuceClientConfigurationBuilder createBuilder(Pool pool) {
         if (pool == null) {
             return LettuceClientConfiguration.builder();
         }
@@ -120,7 +125,7 @@ class ShiroLettuceConnectionConfiguration extends ShiroRedisConnectionConfigurat
             builder.commandTimeout(getProperties().getTimeout());
         }
         if (getProperties().getLettuce() != null) {
-            ShiroRedisProperties.Lettuce lettuce = getProperties().getLettuce();
+            RedisProperties.Lettuce lettuce = getProperties().getLettuce();
             if (lettuce.getShutdownTimeout() != null && !lettuce.getShutdownTimeout().isZero()) {
                 builder.shutdownTimeout(getProperties().getLettuce().getShutdownTimeout());
             }
@@ -143,11 +148,11 @@ class ShiroLettuceConnectionConfiguration extends ShiroRedisConnectionConfigurat
      */
     private static class PoolBuilderFactory {
 
-        LettuceClientConfigurationBuilder createBuilder(ShiroRedisProperties.Pool properties) {
+        LettuceClientConfigurationBuilder createBuilder(Pool properties) {
             return LettucePoolingClientConfiguration.builder().poolConfig(getPoolConfig(properties));
         }
 
-        private GenericObjectPoolConfig<?> getPoolConfig(ShiroRedisProperties.Pool properties) {
+        private GenericObjectPoolConfig<?> getPoolConfig(Pool properties) {
             GenericObjectPoolConfig<?> config = new GenericObjectPoolConfig<>();
             config.setMaxTotal(properties.getMaxActive());
             config.setMaxIdle(properties.getMaxIdle());
