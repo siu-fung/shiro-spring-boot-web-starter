@@ -40,6 +40,11 @@ public class ShiroProperties {
      */
     private ShiroPasswordProperties password;
 
+    /**
+     * shiro中的redis源
+     */
+    private ShiroRedisProperties redis;
+
     public boolean isEnable() {
         return enable;
     }
@@ -78,5 +83,13 @@ public class ShiroProperties {
 
     public void setPassword(ShiroPasswordProperties password) {
         this.password = password;
+    }
+
+    public ShiroRedisProperties getRedis() {
+        return redis;
+    }
+
+    public void setRedis(ShiroRedisProperties redis) {
+        this.redis = redis;
     }
 }

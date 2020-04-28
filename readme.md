@@ -23,6 +23,18 @@ shiro:
     retryCount: 5
     # 锁定时间
     lockTime: 10
+  # 当mode=redis时,该配置生效,配置参照springboot提供的redis配置
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
 ```
 
 ### 项目中使用

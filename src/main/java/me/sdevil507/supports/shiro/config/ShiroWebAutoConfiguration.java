@@ -58,7 +58,8 @@ public class ShiroWebAutoConfiguration {
     @Autowired
     private ShiroProperties shiroProperties;
 
-    @Resource
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Resource(name = "shiroLettuceConnectionFactory")
     private LettuceConnectionFactory lettuceConnectionFactory;
     //endregion
 
