@@ -14,6 +14,8 @@ shiro:
     # 超时时间(默认:30,单位:min)
     timeOut: 30
   cookie:
+    # true:WEB/API混合应用,false:API形式应用,不需要返回cookie
+    enable: true
     # 超时时间(默认:不过期,单位:min)
     session-max-age: -1
     # 记住我时间(默认:30天,单位:min)

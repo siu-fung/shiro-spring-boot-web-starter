@@ -149,8 +149,10 @@ public class ShiroWebAutoConfiguration {
         defaultWebSecurityManager.setSessionManager(defaultWebSessionManager());
         // 设置cache管理器
         defaultWebSecurityManager.setCacheManager(cacheManager());
-        // 设置RememberMe管理器
-        defaultWebSecurityManager.setRememberMeManager(cookieRememberMeManager());
+        if (shiroProperties.getCookie().isEnable()) {
+            // 设置RememberMe管理器
+            defaultWebSecurityManager.setRememberMeManager(cookieRememberMeManager());
+        }
         return defaultWebSecurityManager;
     }
 
@@ -278,9 +280,11 @@ public class ShiroWebAutoConfiguration {
         enhanceSessionManager.setSessionDAO(sessionDAO());
         // 如果禁用后将不会设置Session Id
         // Cookie,即默认使用了Servlet容器的JSESSIONID,且通过URL重写(URL中的“;JSESSIONID=id”部分)保存SessionId
-        enhanceSessionManager.setSessionIdCookieEnabled(true);
-        // 设置cookie相关配置
-        enhanceSessionManager.setSessionIdCookie(sessionIdCookie());
+        enhanceSessionManager.setSessionIdCookieEnabled(shiroProperties.getCookie().isEnable());
+        if (shiroProperties.getCookie().isEnable()) {
+            // 设置cookie相关配置
+            enhanceSessionManager.setSessionIdCookie(sessionIdCookie());
+        }
         return enhanceSessionManager;
     }
 
