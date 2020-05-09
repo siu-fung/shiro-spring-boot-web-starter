@@ -3,11 +3,14 @@ package me.sdevil507.supports.shiro.kickout;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
+import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
 /**
@@ -18,6 +21,12 @@ import java.io.Serializable;
 public class KickoutFilter extends AccessControlFilter {
 
     private Logger log = LoggerFactory.getLogger(KickoutFilter.class);
+
+    private KickoutHandler kickoutHandler;
+
+    public KickoutFilter(KickoutHandler kickoutHandler) {
+        this.kickoutHandler = kickoutHandler;
+    }
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
@@ -42,8 +51,11 @@ public class KickoutFilter extends AccessControlFilter {
         if (isKickout) {
             // 如果是被踢出
             log.info("sessionId=[{}]被踢出", sessionId);
-            // 抛出被踢出异常
-            throw new KickedOutException("您的账号已经在其他地方登陆!");
+            // 此处拓展判定踢出后的后续操作
+            HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
+            HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
+            kickoutHandler.exec(httpServletRequest, httpServletResponse);
+            return false;
         } else {
             // 未被踢出
             log.debug("sessionId=[{}]有效", sessionId);
