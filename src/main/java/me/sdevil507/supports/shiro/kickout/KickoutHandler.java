@@ -22,6 +22,7 @@ public interface KickoutHandler {
      * @param httpServletRequest  request
      * @param httpServletResponse response
      * @param loginUrl            web形式下登录地址
+     * @return 是否放行
      */
-    void exec(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String loginUrl);
+    boolean exec(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String loginUrl);
 }
