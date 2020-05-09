@@ -1,2 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration = \
-  me.sdevil507.supports.shiro.config.ShiroWebAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  me.sdevil507.supports.shiro.config.ShiroWebAutoConfiguration,\
+  me.sdevil507.supports.shiro.kickout.KickoutAop

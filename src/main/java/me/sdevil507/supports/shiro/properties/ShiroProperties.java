@@ -28,22 +28,27 @@ public class ShiroProperties {
     /**
      * 控制session相关配置
      */
-    private ShiroSessionProperties session;
+    private ShiroSessionProperties session = new ShiroSessionProperties();
+
+    /**
+     * 登录人数控制配置项
+     */
+    private ShiroKickoutProperties kickout = new ShiroKickoutProperties();
 
     /**
      * 控制cookie相关配置
      */
-    private ShiroCookieProperties cookie;
+    private ShiroCookieProperties cookie = new ShiroCookieProperties();
 
     /**
      * 控制密码相关配置
      */
-    private ShiroPasswordProperties password;
+    private ShiroPasswordProperties password = new ShiroPasswordProperties();
 
     /**
      * shiro中的redis源
      */
-    private ShiroRedisProperties redis;
+    private ShiroRedisProperties redis = new ShiroRedisProperties();
 
     public boolean isEnable() {
         return enable;
@@ -67,6 +72,14 @@ public class ShiroProperties {
 
     public void setSession(ShiroSessionProperties session) {
         this.session = session;
+    }
+
+    public ShiroKickoutProperties getKickout() {
+        return kickout;
+    }
+
+    public void setKickout(ShiroKickoutProperties kickout) {
+        this.kickout = kickout;
     }
 
     public ShiroCookieProperties getCookie() {
