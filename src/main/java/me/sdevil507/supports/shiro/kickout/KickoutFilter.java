@@ -54,7 +54,7 @@ public class KickoutFilter extends AccessControlFilter {
             // 此处拓展判定踢出后的后续操作
             HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
             HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
-            kickoutHandler.exec(httpServletRequest, httpServletResponse);
+            kickoutHandler.exec(httpServletRequest, httpServletResponse, getLoginUrl());
             return false;
         } else {
             // 未被踢出

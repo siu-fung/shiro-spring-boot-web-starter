@@ -18,6 +18,10 @@ public interface KickoutHandler {
 
     /**
      * 执行
+     *
+     * @param httpServletRequest  request
+     * @param httpServletResponse response
+     * @param loginUrl            web形式下登录地址
      */
-    void exec(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse);
+    void exec(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String loginUrl);
 }
