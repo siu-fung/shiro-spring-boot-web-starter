@@ -13,6 +13,13 @@ shiro:
   session:
     # 超时时间(默认:30,单位:min)
     timeOut: 30
+  kickout:
+    # 是否控制同一账户登录人数(默认:false)
+    enable: true
+    # 是否踢出后登录的(默认:false,踢出之前登录的)
+    last: false
+    # 支持同一账户登录人数
+    max-count: 1
   cookie:
     # true:WEB/API混合应用,false:API形式应用,不需要返回cookie
     enable: true
