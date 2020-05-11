@@ -41,7 +41,7 @@ public class EnhanceSessionManager extends DefaultWebSessionManager {
         String token = httpServletRequest.getHeader("token");
         if (!StringUtils.isEmpty(token)) {
             // 当token不为空时,API接口方式执行登录,使用获取的token执行校验
-            // 以下request设值为标记session来源相关等
+            // 以下request设置为标记session来源相关等
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, ShiroHttpServletRequest.URL_SESSION_ID_SOURCE);
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, token);
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);

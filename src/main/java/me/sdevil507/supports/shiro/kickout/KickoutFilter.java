@@ -50,7 +50,7 @@ public class KickoutFilter extends AccessControlFilter {
 
         if (isKickout) {
             // 如果是被踢出
-            log.info("账号在其他地方被登陆,sessionId=[{}]被标记为kickout.", sessionId);
+            log.info("账号在其他地方被登录,sessionId=[{}]被标记为kickout.", sessionId);
             // 此处拓展判定踢出后的后续操作
             HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
             HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
