@@ -3,6 +3,7 @@ package me.sdevil507.supports.shiro.kickout;
 import me.sdevil507.supports.shiro.properties.ShiroProperties;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.ConcurrentAccessException;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.Session;
@@ -111,7 +112,7 @@ public class KickoutAop {
                     addSession(principal, deque);
                 } else {
                     // 当达到最大登录数后不需要执行真实登录,无法登录
-                    throw new BeyondMaximumNumberOfLoginException("该账号已达最大登录人数!");
+                    throw new ConcurrentAccessException("该账号已达最大登录人数!");
                 }
             } else {
                 // 用户名不存在情况下直接放行
