@@ -1,6 +1,5 @@
 package me.sdevil507.supports.shiro.config;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import me.sdevil507.supports.shiro.cache.ShiroRedisCacheManager;
 import me.sdevil507.supports.shiro.properties.ShiroProperties;
 import me.sdevil507.supports.shiro.realms.MultiModularRealmAuthenticator;
@@ -38,7 +37,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Shiro支持场景启动器自动发现配置
@@ -205,8 +206,8 @@ public class ShiroWebAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public List<AuthenticationListener> listeners() {
-        return new ArrayList<>();
+    public Set<AuthenticationListener> listeners() {
+        return new HashSet<>();
     }
     //endregion
 
@@ -339,20 +340,6 @@ public class ShiroWebAutoConfiguration {
             cacheManager = new MemoryConstrainedCacheManager();
         }
         return cacheManager;
-    }
-    //endregion
-
-    //region thymeleaf shiro标签支持
-
-    /**
-     * 提供thymeleaf shiro标签支持
-     *
-     * @return ShiroDialect
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public ShiroDialect shiroDialect() {
-        return new ShiroDialect();
     }
     //endregion
 

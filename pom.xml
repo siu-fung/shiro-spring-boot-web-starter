@@ -50,13 +50,6 @@
             <version>${shiro.version}</version>
         </dependency>
 
-        <!-- 支持thymeleaf模板中使用shiro标签 -->
-        <dependency>
-            <groupId>com.github.theborakompanioni</groupId>
-            <artifactId>thymeleaf-extras-shiro</artifactId>
-            <version>2.0.0</version>
-        </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
