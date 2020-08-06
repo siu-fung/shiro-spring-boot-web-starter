@@ -1,5 +1,6 @@
 package me.sdevil507.supports.shiro.properties;
 
+import me.sdevil507.supports.shiro.enums.Mode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -16,14 +17,15 @@ public class ShiroProperties {
     private boolean enable = true;
 
     /**
-     * 设置shiro数据暂存模式,主要设置SessionDao与Cache的保存获取位置,可以使用该配置达到共享session目的.
+     * 设置缓存模式
      * <p>
+     * 设置shiro数据暂存模式,主要设置SessionDao与Cache的保存获取位置,可以使用该配置达到共享session目的.
      * 如果不设置,则默认为"Memory"内存模式
      * 当mode="memory"时,使用内存保存
      * 当mode="redis"时,使用redis保存
      * 后续可自行拓展
      */
-    private String mode;
+    private Mode mode = Mode.MEMORY;
 
     /**
      * 控制session相关配置
@@ -58,11 +60,11 @@ public class ShiroProperties {
         this.enable = enable;
     }
 
-    public String getMode() {
+    public Mode getMode() {
         return mode;
     }
 
-    public void setMode(String mode) {
+    public void setMode(Mode mode) {
         this.mode = mode;
     }
 

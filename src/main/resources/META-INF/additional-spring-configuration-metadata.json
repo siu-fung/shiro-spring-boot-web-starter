@@ -1,0 +1,331 @@
+{
+  "groups": [
+    {
+      "name": "shiro",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroProperties",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroProperties"
+    },
+    {
+      "name": "shiro.cookie",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroCookieProperties",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroCookieProperties"
+    },
+    {
+      "name": "shiro.kickout",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroKickoutProperties",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroKickoutProperties"
+    },
+    {
+      "name": "shiro.password",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroPasswordProperties",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroPasswordProperties"
+    },
+    {
+      "name": "shiro.redis",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties"
+    },
+    {
+      "name": "shiro.redis.cluster",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Cluster",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties",
+      "sourceMethod": "getCluster()"
+    },
+    {
+      "name": "shiro.redis.jedis",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Jedis",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties",
+      "sourceMethod": "getJedis()"
+    },
+    {
+      "name": "shiro.redis.jedis.pool",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Jedis",
+      "sourceMethod": "getPool()"
+    },
+    {
+      "name": "shiro.redis.lettuce",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Lettuce",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties",
+      "sourceMethod": "getLettuce()"
+    },
+    {
+      "name": "shiro.redis.lettuce.pool",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Lettuce",
+      "sourceMethod": "getPool()"
+    },
+    {
+      "name": "shiro.redis.sentinel",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Sentinel",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties",
+      "sourceMethod": "getSentinel()"
+    },
+    {
+      "name": "shiro.session",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroSessionProperties",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroSessionProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "shiro.cookie",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroCookieProperties",
+      "description": "控制cookie相关配置",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroProperties"
+    },
+    {
+      "name": "shiro.cookie.enable",
+      "type": "java.lang.Boolean",
+      "description": "当采用WEB形式登录时开启,API形式登录时关闭(默认关闭)",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroCookieProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "shiro.cookie.remember-max-age",
+      "type": "java.lang.Integer",
+      "description": "记住我cookie过期时间(默认30天,单位为\"秒\")",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroCookieProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "shiro.cookie.session-max-age",
+      "type": "java.lang.Integer",
+      "description": "cookie过期时间(默认-1不过期,单位为\"分钟\")",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroCookieProperties",
+      "defaultValue": -1
+    },
+    {
+      "name": "shiro.enable",
+      "type": "java.lang.Boolean",
+      "description": "shiro能力支持是否开启",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "shiro.kickout",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroKickoutProperties",
+      "description": "登录人数控制配置项",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroProperties"
+    },
+    {
+      "name": "shiro.kickout.enable",
+      "type": "java.lang.Boolean",
+      "description": "是否开启登录人数控制(默认关闭)",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroKickoutProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "shiro.kickout.last",
+      "type": "java.lang.Boolean",
+      "description": "是否踢出最后登录的(默认:false,踢出最先登录的)",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroKickoutProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "shiro.kickout.max-count",
+      "type": "java.lang.Integer",
+      "description": "同一账户最大登录人数",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroKickoutProperties",
+      "defaultValue": 1
+    },
+    {
+      "name": "shiro.mode",
+      "type": "me.sdevil507.supports.shiro.enums.Mode",
+      "description": "设置缓存模式 <p> 设置shiro数据暂存模式,主要设置SessionDao与Cache的保存获取位置,可以使用该配置达到共享session目的. 如果不设置,则默认为\"Memory\"内存模式 当mode=\"memory\"时,使用内存保存 当mode=\"redis\"时,使用redis保存 后续可自行拓展",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroProperties",
+      "defaultValue": "memory"
+    },
+    {
+      "name": "shiro.password",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroPasswordProperties",
+      "description": "控制密码相关配置",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroProperties"
+    },
+    {
+      "name": "shiro.password.lock-time",
+      "type": "java.lang.Long",
+      "description": "超出密码重试次数，账号锁定时间(单位:min)",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroPasswordProperties",
+      "defaultValue": 10
+    },
+    {
+      "name": "shiro.password.retry-count",
+      "type": "java.lang.Integer",
+      "description": "密码重试次数(默认密码重试5次,则锁定账号)",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroPasswordProperties",
+      "defaultValue": 5
+    },
+    {
+      "name": "shiro.redis",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties",
+      "description": "shiro中的redis源",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroProperties"
+    },
+    {
+      "name": "shiro.redis.client-name",
+      "type": "java.lang.String",
+      "description": "Client name to be set on connections with CLIENT SETNAME.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties"
+    },
+    {
+      "name": "shiro.redis.cluster.max-redirects",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of redirects to follow when executing commands across the cluster.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Cluster"
+    },
+    {
+      "name": "shiro.redis.cluster.nodes",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Comma-separated list of \"host:port\" pairs to bootstrap from. This represents an \"initial\" list of cluster nodes and is required to have at least one entry.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Cluster"
+    },
+    {
+      "name": "shiro.redis.database",
+      "type": "java.lang.Integer",
+      "description": "Database index used by the connection factory.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "shiro.redis.host",
+      "type": "java.lang.String",
+      "description": "Redis server host.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties",
+      "defaultValue": "localhost"
+    },
+    {
+      "name": "shiro.redis.jedis.pool.max-active",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool",
+      "defaultValue": 8
+    },
+    {
+      "name": "shiro.redis.jedis.pool.max-idle",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of \"idle\" connections in the pool. Use a negative value to indicate an unlimited number of idle connections.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool",
+      "defaultValue": 8
+    },
+    {
+      "name": "shiro.redis.jedis.pool.max-wait",
+      "type": "java.time.Duration",
+      "description": "Maximum amount of time a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool",
+      "defaultValue": "-1ms"
+    },
+    {
+      "name": "shiro.redis.jedis.pool.min-idle",
+      "type": "java.lang.Integer",
+      "description": "Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if both it and time between eviction runs are positive.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool",
+      "defaultValue": 0
+    },
+    {
+      "name": "shiro.redis.jedis.pool.time-between-eviction-runs",
+      "type": "java.time.Duration",
+      "description": "Time between runs of the idle object evictor thread. When positive, the idle object evictor thread starts, otherwise no idle object eviction is performed.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool"
+    },
+    {
+      "name": "shiro.redis.lettuce.pool.max-active",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool",
+      "defaultValue": 8
+    },
+    {
+      "name": "shiro.redis.lettuce.pool.max-idle",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of \"idle\" connections in the pool. Use a negative value to indicate an unlimited number of idle connections.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool",
+      "defaultValue": 8
+    },
+    {
+      "name": "shiro.redis.lettuce.pool.max-wait",
+      "type": "java.time.Duration",
+      "description": "Maximum amount of time a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool",
+      "defaultValue": "-1ms"
+    },
+    {
+      "name": "shiro.redis.lettuce.pool.min-idle",
+      "type": "java.lang.Integer",
+      "description": "Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if both it and time between eviction runs are positive.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool",
+      "defaultValue": 0
+    },
+    {
+      "name": "shiro.redis.lettuce.pool.time-between-eviction-runs",
+      "type": "java.time.Duration",
+      "description": "Time between runs of the idle object evictor thread. When positive, the idle object evictor thread starts, otherwise no idle object eviction is performed.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Pool"
+    },
+    {
+      "name": "shiro.redis.lettuce.shutdown-timeout",
+      "type": "java.time.Duration",
+      "description": "Shutdown timeout.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Lettuce",
+      "defaultValue": "100ms"
+    },
+    {
+      "name": "shiro.redis.password",
+      "type": "java.lang.String",
+      "description": "Login password of the redis server.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties"
+    },
+    {
+      "name": "shiro.redis.port",
+      "type": "java.lang.Integer",
+      "description": "Redis server port.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties",
+      "defaultValue": 6379
+    },
+    {
+      "name": "shiro.redis.sentinel.master",
+      "type": "java.lang.String",
+      "description": "Name of the Redis server.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Sentinel"
+    },
+    {
+      "name": "shiro.redis.sentinel.nodes",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Comma-separated list of \"host:port\" pairs.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties$Sentinel"
+    },
+    {
+      "name": "shiro.redis.ssl",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable SSL support.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "shiro.redis.timeout",
+      "type": "java.time.Duration",
+      "description": "Connection timeout.",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties"
+    },
+    {
+      "name": "shiro.redis.url",
+      "type": "java.lang.String",
+      "description": "Connection URL. Overrides host, port, and password. User is ignored. Example: redis:\/\/user:password@example.com:6379",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroRedisProperties"
+    },
+    {
+      "name": "shiro.session",
+      "type": "me.sdevil507.supports.shiro.properties.ShiroSessionProperties",
+      "description": "控制session相关配置",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroProperties"
+    },
+    {
+      "name": "shiro.session.time-out",
+      "type": "java.lang.Long",
+      "description": "默认session超时时间(默认30分钟,单位:分钟)",
+      "sourceType": "me.sdevil507.supports.shiro.properties.ShiroSessionProperties",
+      "defaultValue": 30
+    }
+  ],
+  "hints": []
+}

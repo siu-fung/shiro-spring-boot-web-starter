@@ -234,7 +234,7 @@ public class ShiroWebAutoConfiguration {
     public AbstractSessionDAO sessionDAO() {
         AbstractSessionDAO sessionDAO;
         String redisStr = "redis";
-        if (redisStr.equalsIgnoreCase(shiroProperties.getMode())) {
+        if (redisStr.equalsIgnoreCase(shiroProperties.getMode().name())) {
             // redis模式
             sessionDAO = new RedisSessionDao();
         } else {
@@ -332,7 +332,7 @@ public class ShiroWebAutoConfiguration {
     public CacheManager cacheManager() {
         CacheManager cacheManager;
         String redisStr = "redis";
-        if (redisStr.equalsIgnoreCase(shiroProperties.getMode())) {
+        if (redisStr.equalsIgnoreCase(shiroProperties.getMode().name())) {
             // 使用redis作为缓存
             cacheManager = new ShiroRedisCacheManager(redisTemplateForCache());
         } else {
