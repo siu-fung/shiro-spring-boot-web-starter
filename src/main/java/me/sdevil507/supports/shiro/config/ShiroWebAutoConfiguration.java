@@ -149,7 +149,7 @@ public class ShiroWebAutoConfiguration {
         // 设置session管理器
         defaultWebSecurityManager.setSessionManager(defaultWebSessionManager());
         // 设置cache管理器
-        defaultWebSecurityManager.setCacheManager(cacheManager());
+        defaultWebSecurityManager.setCacheManager(shiroCacheManager());
         if (shiroProperties.getCookie().isEnable()) {
             // 设置RememberMe管理器
             defaultWebSecurityManager.setRememberMeManager(cookieRememberMeManager());
@@ -327,9 +327,9 @@ public class ShiroWebAutoConfiguration {
      *
      * @return 缓存Manager
      */
-    @Bean
+    @Bean(name = "shiroCacheManager")
     @ConditionalOnMissingBean
-    public CacheManager cacheManager() {
+    public CacheManager shiroCacheManager() {
         CacheManager cacheManager;
         String redisStr = "redis";
         if (redisStr.equalsIgnoreCase(shiroProperties.getMode().name())) {

@@ -54,7 +54,7 @@ shiro:
 <dependency>
     <groupId>me.sdevil507</groupId>
     <artifactId>shiro-spring-boot-web-starter</artifactId>
-    <version>1.0.0</version>
+    <version>x.x.x</version>
 </dependency>
 ```
 
@@ -82,7 +82,8 @@ public class ShiroConfiguration {
      * 缓存管理器
      */
     @Autowired
-    private CacheManager cacheManager;
+    @Qualifier("shiroCacheManager")
+    private CacheManager shiroCacheManager;
     //endregion
 
     //region 拓展监听器入口
@@ -177,7 +178,7 @@ public class ShiroConfiguration {
      */
     @Bean(name = "adminPasswordRetryHashedCredentialsMatcher")
     public PasswordRetryHashedCredentialsMatcher adminPasswordRetryHashedCredentialsMatcher() {
-        PasswordRetryHashedCredentialsMatcher adminPasswordRetryHashedCredentialsMatcher = new PasswordRetryHashedCredentialsMatcher(cacheManager, "admin-shiro-passwordRetryCache", shiroProperties.getPassword().getRetryCount(), shiroProperties.getPassword().getLockTime());
+        PasswordRetryHashedCredentialsMatcher adminPasswordRetryHashedCredentialsMatcher = new PasswordRetryHashedCredentialsMatcher(shiroCacheManager, "admin-shiro-passwordRetryCache", shiroProperties.getPassword().getRetryCount(), shiroProperties.getPassword().getLockTime());
         adminPasswordRetryHashedCredentialsMatcher.setHashAlgorithmName("md5");
         adminPasswordRetryHashedCredentialsMatcher.setHashIterations(1);
         adminPasswordRetryHashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);
@@ -191,7 +192,7 @@ public class ShiroConfiguration {
      */
     @Bean(name = "apiPasswordRetryHashedCredentialsMatcher")
     public PasswordRetryHashedCredentialsMatcher apiPasswordRetryHashedCredentialsMatcher() {
-        PasswordRetryHashedCredentialsMatcher apiPasswordRetryHashedCredentialsMatcher = new PasswordRetryHashedCredentialsMatcher(cacheManager, "api-shiro-passwordRetryCache", shiroProperties.getPassword().getRetryCount(), shiroProperties.getPassword().getLockTime());
+        PasswordRetryHashedCredentialsMatcher apiPasswordRetryHashedCredentialsMatcher = new PasswordRetryHashedCredentialsMatcher(shiroCacheManager, "api-shiro-passwordRetryCache", shiroProperties.getPassword().getRetryCount(), shiroProperties.getPassword().getLockTime());
         apiPasswordRetryHashedCredentialsMatcher.setHashAlgorithmName("md5");
         apiPasswordRetryHashedCredentialsMatcher.setHashIterations(1);
         apiPasswordRetryHashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);
