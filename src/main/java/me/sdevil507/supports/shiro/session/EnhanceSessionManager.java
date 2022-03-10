@@ -6,7 +6,7 @@ import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.session.mgt.WebSessionKey;
 import org.apache.shiro.web.util.WebUtils;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -39,7 +39,7 @@ public class EnhanceSessionManager extends DefaultWebSessionManager {
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
         HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
         String token = httpServletRequest.getHeader("token");
-        if (!StringUtils.isEmpty(token)) {
+        if (!ObjectUtils.isEmpty(token)) {
             // 当token不为空时,API接口方式执行登录,使用获取的token执行校验
             // 以下request设置为标记session来源相关等
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, ShiroHttpServletRequest.URL_SESSION_ID_SOURCE);
